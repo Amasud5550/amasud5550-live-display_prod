@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Portal</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        header img {
+            width: 100px;
+            margin-right: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            width: calc(100% - 22px);
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        a {
+            margin-top: 20px;
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://www.mosqueaisha.ca/assets/mosque-aisha-logo.png" alt="Mosque Aisha Logo">
+        <h1>Mosque Aisha Niagara Falls</h1>
+    </header>
+    <h1>Schedule Streaming</h1>
+    <form id="schedule-form">
+        <label for="start-time">Start Time:</label>
+        <input type="time" id="start-time" required>
+        <label for="stop-time">Stop Time:</label>
+        <input type="time" id="stop-time" required>
+        <button type="submit">Save Schedule</button>
+    </form>
+    <a href="Live Display_prod.html">Back to Webcam</a>
+
+    <script>
+        const form = document.getElementById('schedule-form');
+
+        // Load existing schedule
+        document.getElementById('start-time').value = localStorage.getItem('startTime') || '';
+        document.getElementById('stop-time').value = localStorage.getItem('stopTime') || '';
+
+        // Save schedule to local storage
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const startTime = document.getElementById('start-time').value;
+            const stopTime = document.getElementById('stop-time').value;
+            localStorage.setItem('startTime', startTime);
+            localStorage.setItem('stopTime', stopTime);
+            alert(`Schedule saved: Start at ${startTime}, Stop at ${stopTime}`);
+        });
+    </script>
+</body>
+</html>
