@@ -85,41 +85,21 @@
         // Access webcam feed
         async function startStream() {
             const videoContainer = document.getElementById('stream');
-            const startTime = localStorage.getItem('startTime');
-            const stopTime = localStorage.getItem('stopTime');
-            const now = new Date();
-
-            if (startTime && stopTime) {
-                const [startHour, startMinute] = startTime.split(':').map(Number);
-                const [stopHour, stopMinute] = stopTime.split(':').map(Number);
-                const start = new Date(now);
-                start.setHours(startHour, startMinute, 0, 0);
-                const stop = new Date(now);
-                stop.setHours(stopHour, stopMinute, 0, 0);
-
-                if (now >= start && now <= stop) {
-                    try {
-                        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                        const video = document.createElement('video');
-                        video.autoplay = true;
-                        video.muted = true;
-                        video.playsInline = true;
-                        videoContainer.textContent = ''; // Clear placeholder text
-                        videoContainer.appendChild(video);
-                        video.srcObject = stream;
-                    } catch (err) {
-                        console.error('Error accessing webcam:', err);
-                        videoContainer.textContent = 'Welcome to Mosque Aisha';
-                    }
-                } else {
-                    videoContainer.textContent = 'Welcome to Mosque Aisha';
-                }
-            } else {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                const video = document.createElement('video');
+                video.autoplay = true;
+                video.muted = true;
+                video.playsInline = true;
+                videoContainer.textContent = ''; // Clear placeholder text
+                videoContainer.appendChild(video);
+                video.srcObject = stream;
+            } catch (err) {
+                console.error('Error accessing webcam:', err);
                 videoContainer.textContent = 'Welcome to Mosque Aisha';
             }
         }
         startStream();
-        setInterval(startStream, 60000); // Check every minute
     </script>
 </body>
 </html>
